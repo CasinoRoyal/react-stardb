@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './item-list.css';
 
-export default class ItemList extends Component {
+const ItemList = (props) => {
+  const { data, onSelectedItem } = props; 
+  const items = data.map((item) => {
+    
+    const { id } = item;
+    const label = props.children(item);
 
-  render() {
     return (
-      <ul className="item-list list-group">
-        <li className="list-group-item">
-          Luke Skywalker
-        </li>
-        <li className="list-group-item">
-          Darth Vader
-        </li>
-        <li className="list-group-item">
-          R2-D2
-        </li>
-      </ul>
+      <li className="list-group-item"
+          key={id}
+          onClick={() => onSelectedItem(id)}>
+        {label}
+      </li>        
     );
-  }
-}
+  });
+
+  return (
+    <ul className="item-list list-group">
+      {items}
+    </ul>
+  );
+};
+
+export default ItemList;
